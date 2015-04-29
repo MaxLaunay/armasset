@@ -52,11 +52,13 @@ try{
     if (!((Get-AzureStorageAccount).StorageAccountName -contains $StorageAccountName)){
         New-AzureStorageAccount -StorageAccountName $StorageAccountName `
             -Location $Location | Out-Null
+        write-verbose "Storage Account $StorageAccountName created"
     }
     
     # create a container (with public blob) for Configuration Files if it does not exist
     if (!((Get-AzureStorageContainer).Name -contains $ContainerName)){
         New-AzureStorageContainer -Name $ContainerName -Permission Blob | out-null
+        write-verbose "Container $ContainerName created"
     }
 
     # get Parameters.json
