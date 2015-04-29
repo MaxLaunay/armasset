@@ -1,23 +1,30 @@
 <# 
 .SYNOPSIS 
-   
+    Set configuration to use this project
 .DESCRIPTION
-    ...
-    You must have an active Azure Subscription and set an Azure Account (Add-AzureAccount) Before used this script
-   
-(
+    Set configuration to use this project and run a basic deployment :
+        - 1 IaaS VM for Active Directory
+        - 1 IaaS VM for SQL Server
+        - 1 Azure Web Site
+    Only SubscriptionName, StorageAccountName and envName must be set (because here must be unique in Azure). All other 
+    parameters are in this script and in .\ResourcesManager\environment_template.json file.
+    You must have an active Azure Subscription and set an Azure Account (Add-AzureAccount) before used this script
 .EXAMPLE 
-   Startup.ps1
+    ./Startup.ps1
 .OUTPUTS 
-   Microsoft.WindowsAzure.Management.ServiceManagement.Model.OSImageContext 
-)
+   no output
 #>
+
+param (
+    [string]$SubscriptionName = "Osiatis CIS - MSDN Dev-Test", # Specify our Azure Subscription Name
+    [string]$StorageAccountName = "sourcedatafiles",
+    [string]$envName = "armasset" # Lower Case, 11 chars max
+)
 
 Switch-AzureMode -Name AzureServiceManagement
 
 # Set variables
-[string]$SubscriptionName = "Osiatis CIS - MSDN Dev-Test" # Specify our Azure Subscription Name
-[string]$StorageAccountName = "sourcedatafiles"
+
 [string]$ContainerName = "configurationfiles"
 [string]$DSCFile = ".\DSC\environmentDSC.ps1"
 [string]$SQLSetupConfigurationFile = ".\SQL\ConfigurationFile.ini"
@@ -26,8 +33,7 @@ Switch-AzureMode -Name AzureServiceManagement
 [string]$Location = "North Europe"
 [string]$ParametersFile = ".\ResourcesManager\parameters.json"
 [string]$TemplateFile = ".\ResourcesManager\environnement.json"
-[string]$TemplateParametersFile = = ".\ResourcesManager\environnement_template.json"
-[string]$envName = "armasset" # Lower Case, 11 chars max
+[string]$TemplateParametersFile = ".\ResourcesManager\environnement_template.json"
 
 # Internal Variables
 $DSCArchive = "$DSCFile.zip"
