@@ -1,0 +1,9 @@
+# Prérequis
+	-> 1 public container pour DSC et SQL
+	-> Module Azure Resource Manager : https://github.com/Azure/azure-content/blob/master/articles/powershell-azure-resource-manager.md
+	
+AIDE :
+	https://msdn.microsoft.com/en-us/library/azure/dn835138.aspx
+	SQL Server unattend installation :
+		- http://basitaalishan.com/2012/08/02/unattended-sql-server-2012-installs/
+		- https://technet.microsoft.com/en-us/library/dd239405%28v=sql.110%29.aspx

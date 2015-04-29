@@ -1,0 +1,35 @@
+{
+	"UserName" : {
+		"value" : "bcadmin"
+	},
+	"Password" : {
+		"value" : "P@ssw0rd.1"
+	},
+	"DSCModuleURI" : {
+		"value" : "https://sourcedatafiles.blob.core.windows.net/configurationfiles/environmentDSC.ps1.zip"
+	},
+	"DSCSCript" : {
+		"value" : "environmentDSC.ps1"
+	},
+	"DatabaseName" : {
+		"value" : "MyDatabase"
+	},
+	"DomainName" : {
+		"value" : "MyDomain.local"
+	},
+	"DomainNetbiosName" : {
+		"value" : "MyDomain"
+	},
+	"SQLSetupConfigurationFileUri" : {
+		"value" : "https://sourcedatafiles.blob.core.windows.net/configurationfiles/ConfigurationFile.ini"
+	},
+	"SQLServerISOUri" : {
+		"value" : "http://download.microsoft.com/download/4/C/7/4C7D40B9-BCF8-4F8A-9E76-06E9B92FE5AE/ENU/SQLFULL_ENU.iso"
+	},
+	"SQLDatabaseFileUri" : {
+		"value" : "https://sourcedatafiles.blob.core.windows.net/configurationfiles/database.sql"
+	},
+	"staticADIpAddress" : {
+		"value" : "10.0.0.4"
+	}
+}

@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{AA5AF8E1-0CF6-41F2-83E4-2F6810196A6F}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\Environment.ps1 = scripts\Environment.ps1
+		scripts\Environment_beta.ps1 = scripts\Environment_beta.ps1
+		scripts\PushResources.ps1 = scripts\PushResources.ps1
+		scripts\readme.md = scripts\readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ResourcesManager", "ResourcesManager", "{C98921B2-7B08-49FF-AE1C-A4393B4C712A}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\ResourcesManager\environnement.json = scripts\ResourcesManager\environnement.json
+		scripts\ResourcesManager\environnement_beta.json = scripts\ResourcesManager\environnement_beta.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DSC", "DSC", "{FB60CABC-49FE-46B8-9752-DD3DFE4ABD30}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\DSC\eoBootCampDSC.ps1 = scripts\DSC\eoBootCampDSC.ps1
+		scripts\DSC\eoBootCampDSC_beta.ps1 = scripts\DSC\eoBootCampDSC_beta.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{9A92CCEE-AE65-44B9-84F2-418F1D56FE97}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\SQL\ConfigurationFile.ini = scripts\SQL\ConfigurationFile.ini
+		scripts\SQL\database.sql = scripts\SQL\database.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCampTestWeb", "BCampTestWeb\BCampTestWeb.csproj", "{81518D81-7D02-4716-968C-038E11E62A59}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "BCampTestWeb.Deployment", "BCampTestWeb.Deployment\BCampTestWeb.Deployment.deployproj", "{14022C8D-D210-43C5-9ACB-8EC520CD6724}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81518D81-7D02-4716-968C-038E11E62A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81518D81-7D02-4716-968C-038E11E62A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81518D81-7D02-4716-968C-038E11E62A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81518D81-7D02-4716-968C-038E11E62A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14022C8D-D210-43C5-9ACB-8EC520CD6724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14022C8D-D210-43C5-9ACB-8EC520CD6724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14022C8D-D210-43C5-9ACB-8EC520CD6724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14022C8D-D210-43C5-9ACB-8EC520CD6724}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C98921B2-7B08-49FF-AE1C-A4393B4C712A} = {AA5AF8E1-0CF6-41F2-83E4-2F6810196A6F}
+		{FB60CABC-49FE-46B8-9752-DD3DFE4ABD30} = {AA5AF8E1-0CF6-41F2-83E4-2F6810196A6F}
+		{9A92CCEE-AE65-44B9-84F2-418F1D56FE97} = {AA5AF8E1-0CF6-41F2-83E4-2F6810196A6F}
+	EndGlobalSection
+EndGlobal

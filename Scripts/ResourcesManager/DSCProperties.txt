@@ -1,0 +1,45 @@
+Exemple :    
+	"Properties": [
+	  {
+		"TypeName": "System.String",
+		"Name": "username",
+		"Value": "JoinDomaintoto"
+	  },
+	  {
+		"TypeName": "System.Management.Automation.PSObject",
+		"Name": "password",
+		"Value": {
+		  "CliXml": "<Objs Version=\"1.1.0.1\" xmlns=\"http://schemas.microsoft.com/powershell/2004/04\">\r\n  <Obj RefId=\"0\">\r\n    <TN RefId=\"0\">\r\n      <T>System.Security.SecureString</T>\r\n      <T>System.Object</T>\r\n    </TN>\r\n    <ToString>System.Security.SecureString</ToString>\r\n    <Obj RefId=\"1\">\r\n      <SS>01000000d08c9ddf0115d1118c7a00c04fc297eb0100000056c11b6b58c5944188c1fb711f62ae1800000000020000000000106600000001000020000000e2d35ff97a3e3bd87898c3dd51561e0ff873b5a5e711dafde0198eecf638bf6a000000000e8000000002000020000000551a2bea2ef9b68555135b0b6246d043b669eb9ca1ddb13975f617f270f9e5132000000045086cd41a18d600998dd1a7121cd6415cc7fa2a38e258cc7969d94f35fa771940000000511efa1b9bf50b85ea88ca2be35b35b9a38ad9a9b98aadc4b634dfa026bb04d6ed4ebc98494f40370d13b6d67600daff881a7e0658eabd7169513eccb0a7fd6d</SS>\r\n    </Obj>\r\n  </Obj>\r\n</Objs>"
+		}
+	  },
+	  {
+		"TypeName": "System.String",
+		"Name": "Mydb",
+		"Value": "demo"
+	  }
+	],
+	
+	 "CliXml": "[ concat('<Objs Version=\"1.1.0.1\" xmlns=\"http://schemas.microsoft.com/powershell/2004/04\">\r\n  <Obj RefId=\"0\">\r\n    <TN RefId=\"0\">\r\n      <T>System.Security.SecureString</T>\r\n      <T>System.Object</T>\r\n    </TN>\r\n    <ToString>System.Security.SecureString</ToString>\r\n    <Obj RefId=\"1\">\r\n      <SS>' , parameters('passwordToString') , '</SS>\r\n    </Obj>\r\n  </Obj>\r\n</Objs>')]"
+	
+	
+	
+Code :
+	"Properties": [
+	  {
+		"TypeName": "System.String",
+		"Name": "username",
+		"Value": "[parameters('userName')]"
+	  },
+	  {
+		"TypeName": "System.Management.Automation.PSObject",
+		"Name": "password",
+		"Value": {
+		  "CliXml": "<Objs Version=\"1.1.0.1\" xmlns=\"http://schemas.microsoft.com/powershell/2004/04\">\r\n  <Obj RefId=\"0\">\r\n    <TN RefId=\"0\">\r\n      <T>System.Security.SecureString</T>\r\n      <T>System.Object</T>\r\n    </TN>\r\n    <ToString>System.Security.SecureString</ToString>\r\n    <Obj RefId=\"1\">\r\n      <SS>01000000d08c9ddf0115d1118c7a00c04fc297eb0100000056c11b6b58c5944188c1fb711f62ae1800000000020000000000106600000001000020000000e2d35ff97a3e3bd87898c3dd51561e0ff873b5a5e711dafde0198eecf638bf6a000000000e8000000002000020000000551a2bea2ef9b68555135b0b6246d043b669eb9ca1ddb13975f617f270f9e5132000000045086cd41a18d600998dd1a7121cd6415cc7fa2a38e258cc7969d94f35fa771940000000511efa1b9bf50b85ea88ca2be35b35b9a38ad9a9b98aadc4b634dfa026bb04d6ed4ebc98494f40370d13b6d67600daff881a7e0658eabd7169513eccb0a7fd6d</SS>\r\n    </Obj>\r\n  </Obj>\r\n</Objs>"
+		}
+	  },
+	  {
+		"TypeName": "System.String",
+		"Name": "Mydb",
+		"Value": "[parameters('myDB')]",
+	  }
+	],

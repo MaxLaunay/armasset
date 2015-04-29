@@ -1,0 +1,37 @@
+# Ancien compte Automation (AzureManageraccount)
+	# Test du script SASToken : KO
+		4/23/2015 3:49:11 PM, Error: Get-AzureStorageKey : The 'Get-AzureStorageKey' command was found in the module 'Azure', but the module could not be 
+		loaded. For more information, run 'Import-Module Azure'.
+		At SASToken:18 char:18
+		+ 
+			+ CategoryInfo          : ObjectNotFound: (Get-AzureStorageKey:String) [], CommandNotFoundException
+			+ FullyQualifiedErrorId : CouldNotAutoloadMatchingModule
+		4/23/2015 3:49:12 PM, Error: New-AzureStorageContext : The 'New-AzureStorageContext' command was found in the module 'Azure', but the module could 
+		not be loaded. For more information, run 'Import-Module Azure'.
+		At SASToken:18 char:18
+		+ 
+			+ CategoryInfo          : ObjectNotFound: (New-AzureStorageContext:String) [], CommandNotFoundException
+			+ FullyQualifiedErrorId : CouldNotAutoloadMatchingModule
+		4/23/2015 3:49:14 PM, Error: New-AzureStorageBlobSASToken : The 'New-AzureStorageBlobSASToken' command was found in the module 'Azure', but the 
+		module could not be loaded. For more information, run 'Import-Module Azure'.
+		At SASToken:18 char:18
+		+ 
+			+ CategoryInfo          : ObjectNotFound: (New-AzureStorageBlobSASToken:String) [], CommandNotFoundException
+			+ FullyQualifiedErrorId : CouldNotAutoloadMatchingModule
+		4/23/2015 3:49:14 PM, Output
+	# Suppression module AzureResourceManager : OK
+	# Test du script SASToken (mode draft) : KO
+
+# Creation d'un nouveau compte Automation (AzureManager): OK
+	# Copier / Coller du script SASToken : OK
+	# Test du script SASToken (mode draft) : OK
+	# Création du Credential : OK
+	# Test du script SASToken (mode draft) : OK
+	# publication du script SASToken : OK
+	# Test du script SASToken (mode publié) : OK
+	# Test du script SASToken (mode publié) : OK
+	# Import du module AzureResourceManager : OK
+	# Test du script SASToken (mode publié) : OK
+	# Creation script utilisant Azure Resource Manager (PublishEnv) : KO
+	# Test du script SASToken (mode publié) : KO
+	 
