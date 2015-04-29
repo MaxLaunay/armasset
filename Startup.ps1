@@ -13,52 +13,47 @@
 )
 #>
 
-if ($PSScriptRoot){
-    [string]$RootDir = $PSScriptRoot
-}else{
-    if (Test-Path ".\Set-Configuration.ps1"){
-        [string]$RootDir = Convert-Path .
-    }
-}
-
 Switch-AzureMode -Name AzureServiceManagement
 
 # Set variables
 [string]$SubscriptionName = "Osiatis CIS - MSDN Dev-Test" # Specify our Azure Subscription Name
 [string]$StorageAccountName = "sourcedatafiles"
 [string]$ContainerName = "configurationfiles"
-[string]$DSCFile = "$RootDir\DSC\environmentDSC.ps1"
-[string]$SQLSetupConfigurationFile = "$RootDir\SQL\ConfigurationFile.ini"
-[string]$SQLdatabaseFile = "$RootDir\SQL\database.sql"
-[string]$WebPackageFile = "$RootDir\..\BCampTestWeb.Deployment\bin\Debug\StorageDrop\BCampTestWeb\package.zip"
+[string]$DSCFile = ".\DSC\environmentDSC.ps1"
+[string]$SQLSetupConfigurationFile = ".\SQL\ConfigurationFile.ini"
+[string]$SQLdatabaseFile = ".\SQL\database.sql"
+[string]$WebPackageFile = ".\WebPackage\WebPackage.zip"
 [string]$Location = "North Europe"
+[string]$ParametersFile = ".\ResourcesManager\parameters.json"
+[string]$TemplateFile = ".\ResourcesManager\environnement.json"
+[string]$TemplateParametersFile = = ".\ResourcesManager\environnement_template.json"
+[string]$envName = "armasset" # Lower Case, 11 chars max
 
-
-# Set Azure Subscription
-Set-AzureSubscription `
-    -SubscriptionName $subscriptionName
-
-# Create a storage account for Configuration Files if it does not exist
-if (!((Get-AzureStorageAccount).StorageAccountName -contains $StorageAccountName)){
-    New-AzureStorageAccount -StorageAccountName $StorageAccountName `
-        -Location $Location
-}
+# Internal Variables
+$DSCArchive = "$DSCFile.zip"
 
 Set-AzureSubscription `
     -SubscriptionName $subscriptionName `
     -CurrentStorageAccountName $StorageAccountName
-
-# create a container for Configuration File if it does not exist
-if (!((Get-AzureStorageContainer).Name -contains $ContainerName)){
-    New-AzureStorageContainer -Name $ContainerName
-}
 
 # push Configuration Files to the container of the storage account
 .\Set-Configuration.ps1 `
     -SubscriptionName $SubscriptionName `
     -StorageAccountName $StorageAccountName `
     -ContainerName $ContainerName `
+    -Location $Location `
+    -ParametersFile $ParametersFile `
+    -DSCFile $DSCFile `
     -SQLSetupConfigurationFile $SQLSetupConfigurationFile `
     -SQLdatabaseFile $SQLdatabaseFile `
-    -WebPackageFile $WebPackageFile `
-    -DSCFile $DSCFile
+    -WebPackageFile $WebPackageFile
+
+.\Set-Environment-With-Parameters-File.ps1 `
+    -TemplateFile $TemplateFile `
+    -ParametersFile $ParametersFile `
+    -envName $envName `
+    -subscriptionName $subscriptionName `
+    -Location $Location `
+    -StorageAccountName $StorageAccountName `
+    -ContainerName $ContainerName `
+    -DSCArchive $DSCArchive

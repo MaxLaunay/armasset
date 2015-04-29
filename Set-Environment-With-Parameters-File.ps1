@@ -1,33 +1,62 @@
-﻿param (
-    [string]$envName = "assetarm", # 11 caractères max 
-    [string]$subscriptionName = "Osiatis CIS - MSDN Dev-Test",
-    [string]$Location = "North Europe"
+﻿<# 
+.SYNOPSIS 
+    Create the environment specified in Template File with parameters specified in parameters file.
+.DESCRIPTION 
+    Create the environnement specified in the template File (by default .\ResourcesManager\Environment.json) with 
+    the parameters specified in the parameters file (by default .\ResourcesManager\parameters.json).
+    To use this script, you must : 
+        - have an active Azure Subscription 
+        - run the script .\set-configuration.ps1 one time
+.EXAMPLE 
+    Set-Environment-With-Parameters-File.ps1 `
+        -envName "YourEnvironement" `
+        -subscriptionName "Your Subscription" `
+        -Location "Your Azure Datacenter (eg : North Europe)" `
+        -StorageAccountName "yourstorageaccount" `
+        -ContainerName "yourcontainer" `
+        -TemplateFile ".\ResourcesManager\environnement.json" `
+        -ParametersFile ".\ResourcesManager\parameters.json" `
+        -DSCArchive "environmentDSC.ps1.zip"
+.OUTPUTS 
+    no output
+#>
+param (
+    [Parameter(Mandatory = $true)][string]$envName,
+    [Parameter(Mandatory = $true)][string]$subscriptionName,
+    [Parameter(Mandatory = $true)][string]$Location,
+    [Parameter(Mandatory = $true)][string]$StorageAccountName,
+    [Parameter(Mandatory = $true)][string]$ContainerName,
+    [Parameter(Mandatory = $true)][string]$DSCArchive,
+    [string]$TemplateFile = ".\ResourcesManager\environnement.json",
+    [string]$ParametersFile = ".\ResourcesManager\parameters.json"
 )
+
+
+[string]$SubscriptionName = "Osiatis CIS - MSDN Dev-Test" # Specify our Azure Subscription Name
+[string]$StorageAccountName = "sourcedatafiles"
+[string]$ContainerName = "configurationfiles"
+[string]$DSCFile = ".\DSC\environmentDSC.ps1"
+[string]$SQLSetupConfigurationFile = ".\SQL\ConfigurationFile.ini"
+[string]$SQLdatabaseFile = ".\SQL\database.sql"
+[string]$WebPackageFile = ".\WebPackage\WebPackage.zip"
+[string]$Location = "North Europe"
+[string]$ParametersFile = ".\ResourcesManager\parameters.json"
+[string]$TemplateFile = ".\ResourcesManager\environnement.json"
+[string]$envName = "armasset" # Lower Case, 11 chars max
+
+# Internal Variables
+$DSCArchive = (get-item $DSCFile).name + ".zip"
 
 
 # A importer en tant que modules Automation
 Import-Module 'C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ServiceManagement\Azure\Azure.psd1'
 Import-Module 'C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ResourceManager\AzureResourceManager\AzureResourceManager.psd1'
 
-# Parameters
-[string]$TemplateFile = ".\ResourcesManager\$TemplateFile"
-
-
-$DSCSCript = "environmentDSC.ps1"
-$parametersFile = ".\ResourcesManager\parameters.json"
-#Const
-[string]$StorageAccountName = "sourcedatafiles"
-[string]$ContainerName = "configurationfiles"
-
 # Internal Variables
 $ResourceGroupName = $envName + "-ResourceGroup" # Resource Group Name
-$Blob = "$DSCSCript.zip"
-# [uri]$TemplateURI = "https://$storagedatafilesName.blob.core.windows.net/json-files/$TemplateFile" # lien http du template Json
 
-[uri]$DSCmoduleURI = "https://$StorageAccountName.blob.core.windows.net/$ContainerName/$Blob"
-#[uri]$SQLSetupConfigurationFileUri = "https://$StorageAccountName.blob.core.windows.net/$ContainerName/ConfigurationFile.ini"
-#[uri]$SQLDatabaseFileUri = "https://$StorageAccountName.blob.core.windows.net/$ContainerName/database.sql"
-#[uri]$SQLServerISOUri = "http://download.microsoft.com/download/4/C/7/4C7D40B9-BCF8-4F8A-9E76-06E9B92FE5AE/ENU/SQLFULL_ENU.iso"
+# Switch to Service Management mode
+Switch-AzureMode -Name AzureServiceManagement
 
 # Subscription
 Select-AzureSubscription -SubscriptionName $subscriptionName
@@ -46,7 +75,7 @@ $srcContext = New-AzureStorageContext  –StorageAccountName $StorageAccountName
 # Get a Token to deploy DSC Extension
 $startTime = Get-Date
 $endTime = $startTime.AddHours(1.0)
-$DSCToken = New-AzureStorageBlobSASToken -context $srcContext -Container $ContainerName -Blob $blob `
+$DSCToken = New-AzureStorageBlobSASToken -context $srcContext -Container $ContainerName -Blob $DSCArchive `
     -Permission r -StartTime $startTime -ExpiryTime $endTime
 
 # set AzureResourceManager Mode
@@ -59,10 +88,20 @@ if(!((get-AzureResourceGroup).ResourceGroupName -contains $ResourceGroupName)){
         -Name $ResourceGroupName
 }
 
+# Create all resourcs specified in the TemplateFile
 New-AzureResourceGroupDeployment -verbose `
     -ResourceGroupName $ResourceGroupName `
     -TemplateFile $TemplateFile `
+    -TemplateParameterFile $ParametersFile `
     -EnvironmentName $EnvName `
     -DSCToken $DSCToken `
-    -Location $Location `
-    -TemplateParameterFile $parametersFile
+    -Location $Location
+
+# Create all resourcs specified in the TemplateFile
+New-AzureResourceGroupDeployment -verbose `
+    -ResourceGroupName $ResourceGroupName `
+    -TemplateFile $TemplateFile `
+    -TemplateParameterFile $ParametersFile `
+    -EnvironmentName $EnvName `
+    -DSCToken $DSCToken `
+    -Location $Location
