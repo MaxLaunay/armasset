@@ -32,7 +32,7 @@ param (
 )
 
 
-[string]$SubscriptionName = "Osiatis CIS - MSDN Dev-Test" # Specify our Azure Subscription Name
+<#[string]$SubscriptionName = "Osiatis CIS - MSDN Dev-Test" # Specify our Azure Subscription Name
 [string]$StorageAccountName = "sourcedatafiles"
 [string]$ContainerName = "configurationfiles"
 [string]$DSCFile = ".\DSC\environmentDSC.ps1"
@@ -43,17 +43,21 @@ param (
 [string]$ParametersFile = ".\ResourcesManager\parameters.json"
 [string]$TemplateFile = ".\ResourcesManager\environnement.json"
 [string]$envName = "armasset" # Lower Case, 11 chars max
+#>
 
-# Internal Variables
-$DSCArchive = (get-item $DSCFile).name + ".zip"
-
-
-# A importer en tant que modules Automation
-Import-Module 'C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ServiceManagement\Azure\Azure.psd1'
-Import-Module 'C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ResourceManager\AzureResourceManager\AzureResourceManager.psd1'
+# Import module Azure Resource Manager
+if (!(get-module AzureResourceManager)){
+    try{
+        Import-Module 'C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ResourceManager\AzureResourceManager\AzureResourceManager.psd1'
+    }catch{
+        Write-output "Unable to found Azure Resource Manager Module. Please download it"
+        throw $_
+    }
+}
 
 # Internal Variables
 $ResourceGroupName = $envName + "-ResourceGroup" # Resource Group Name
+$DSCArchive = (get-item $DSCFile).name + ".zip"
 
 # Switch to Service Management mode
 Switch-AzureMode -Name AzureServiceManagement
