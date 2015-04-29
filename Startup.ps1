@@ -33,7 +33,7 @@ Switch-AzureMode -Name AzureServiceManagement
 [string]$Location = "North Europe"
 [string]$ParametersFile = ".\ResourcesManager\parameters.json"
 [string]$TemplateFile = ".\ResourcesManager\environnement.json"
-[string]$TemplateParametersFile = ".\ResourcesManager\environnement_template.json"
+[string]$TemplateParametersFile = ".\ResourcesManager\parameters_template.json"
 
 # Internal Variables
 $DSCArchive = "$DSCFile.zip"
@@ -52,7 +52,8 @@ Set-AzureSubscription `
     -DSCFile $DSCFile `
     -SQLSetupConfigurationFile $SQLSetupConfigurationFile `
     -SQLdatabaseFile $SQLdatabaseFile `
-    -WebPackageFile $WebPackageFile
+    -WebPackageFile $WebPackageFile `
+    -TemplateParametersFile $TemplateParametersFile
 
 .\Set-Environment-With-Parameters-File.ps1 `
     -TemplateFile $TemplateFile `
