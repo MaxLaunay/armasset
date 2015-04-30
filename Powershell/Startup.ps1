@@ -16,9 +16,9 @@
 #>
 
 param (
-    [string]$SubscriptionName = "Osiatis CIS - MSDN Dev-Test", # Specify our Azure Subscription Name
-    [string]$StorageAccountName = "sourcedatafiles",
-    [string]$envName = "armasset" # Lower Case, 11 chars max
+    [Parameter(Mandatory = $true)][string]$SubscriptionName, # Specify our Azure Subscription Name
+    [Parameter(Mandatory = $true)][string]$StorageAccountName,
+    [Parameter(Mandatory = $true)][string]$envName # Lower Case, 11 chars max
 )
 
 Switch-AzureMode -Name AzureServiceManagement

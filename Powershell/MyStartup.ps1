@@ -1,0 +1,1 @@
+.\Startup.ps1 -SubscriptionName "Osiatis CIS - MSDN Dev-Test" -StorageAccountName "sourcedatafiles" -envName "armasset"
