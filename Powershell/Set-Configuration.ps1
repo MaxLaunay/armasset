@@ -86,16 +86,15 @@ try{
     # Upload SQL Database File
     Set-AzureStorageBlobContent -Container $ContainerName -File $SQLdatabaseFile -Force | out-Null
     write-output "- File '$SQLdatabaseFile' push to the container '$ContainerName' on the storage account '$StorageAccountName'"
-    
     # Set SQLDatabaseFileUri
-    $ParametersFileObj.SQLSetupConfigurationFileUri.value = "https://$StorageAccountName.blob.core.windows.net/$ContainerName/" `        + (Get-Item $SQLdatabaseFile).Name
+    $ParametersFileObj.SQLDatabaseFileUri.value = "https://$StorageAccountName.blob.core.windows.net/$ContainerName/" `        + (Get-Item $SQLdatabaseFile).Name
     
     # Upload Web Package File
     Set-AzureStorageBlobContent -Container $ContainerName -File $WebPackageFile -Force | out-Null
     write-output "- File '$WebPackageFile' push to the container '$ContainerName' on the storage account '$StorageAccountName'"
-
     # Save Parameters.json
     $ParametersFileObj | ConvertTo-Json | Out-File $ParametersFile
+
 }catch{
     write-host "Error during Files upload"
     throw $_
