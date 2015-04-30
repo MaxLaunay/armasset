@@ -1,6 +1,34 @@
-##################
-SCRIPTS : 
-- PushResources.ps1 : permet de publier les fichiers de template, de configuration et les scripts DSC
+# About the Scripts
+This project is an example at how to work with Azure Resource Manager. It allow to automated provisioning of one Active Directory (IaaS), one SQL Server (IaaS) and one Azure Web Site (PaaS). They are created to simply create an infrastructure with the new approach proposed by ARM.
+
+# Release and Support Status
+
+The project are not supported by Windows Azure support but we are very interested in feedback so please report issues through the GitHub repo. Please remember : Azure Resource Manager is in Preview.
+
+# Configure your first deployment
+
+### Prerequisites
+Please read this articles (http://azure.microsoft.com/en-us/documentation/articles/powershell-azure-resource-manager/) and follow steps before use this project
+
+### Run the script
+To start easely the project, open a powershell session, move to your local project directory, and run the powershell script .\startup.ps1.
+
+# Configure your own deployment
+
+# List of files and comments
+
+# Reste à faire
+	- Same script with Azure CLI (http://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/)
+
+# Help
+	Using Windows PowerShell with Resource Manager : http://azure.microsoft.com/en-us/documentation/articles/powershell-azure-resource-manager/
+
+
+
+
+
+
+- Set-Configuration.ps1 : publish configuration  les fichiers de template, de configuration et les scripts DSC
 - Environment.ps1 : 
 	- créer un environnement avec :
 		- 1 Server Active Directory
