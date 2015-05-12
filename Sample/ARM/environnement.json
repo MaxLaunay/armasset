@@ -41,10 +41,10 @@
 		"ADdomainName" : {
 			"type" : "String"
 		},
-		"DomainNetbiosName" : {
+		"SQLSetupConfigurationFileUri" : {
 			"type" : "String"
 		},
-		"SQLSetupConfigurationFileUri" : {
+		"sourceImageName" : {
 			"type" : "String"
 		},
 		"SQLDatabaseFileUri" : {
@@ -87,7 +87,7 @@
 		"computer" : {
 			"activeDirectory" : {
 				"hostname" : "[ concat(parameters('environmentName'),'-ad') ]",
-				"DSCConfiguration" : "activeDirectory"
+				"DSCConfiguration" : "CreateADPDC"
 			},
 			"SQLServer" : {
 				"hostname" : "[ concat(parameters('environmentName'),'-sql') ]",
@@ -157,7 +157,7 @@
 				"networkProfile" : {
 					"virtualNetwork" : {
 						"id" : "[concat(resourceGroup().id, '/providers/Microsoft.ClassicNetwork/virtualNetworks/', variables('newVirtualNetworkName'))]",
-						"staticIpAddress": "[parameters('staticADIpAddress')]",
+						"staticIpAddress" : "[parameters('staticADIpAddress')]",
 						"subnetNames" : [
 							"[parameters('newSubnetsName')]"
 						]
@@ -197,7 +197,7 @@
 						"diskName" : "[concat(variables('newDomainName'), '-', variables('computer').activeDirectory.hostname, '-osdisk')]",
 						"vhdUri" : "[concat(reference(concat('Microsoft.ClassicStorage/storageAccounts/', variables('newStorageAccountName'))).endpoints[0], 'vhds/', variables('newDomainName'), '-', variables('computer').activeDirectory.hostname, '-osdisk.vhd')]",
 						"caching" : "ReadWrite",
-						"sourceImageName" : "a699494373c04fc0bc8f2bb1389d6106__Windows-Server-2012-R2-201503.01-en.us-127GB.vhd"
+						"sourceImageName" : "[parameters('sourceImageName')]"
 					}
 
 				},
@@ -210,8 +210,8 @@
 					}, {
 						"extension" : "DSC",
 						"publisher" : "Microsoft.Powershell",
-						"version" : "1.*",
 						"referenceName" : "DSC",
+						"version" : "1.*",
 						"parameters" : {
 							"public" : {
 								"SasToken" : "[parameters('DSCToken')]",
@@ -225,10 +225,6 @@
 										"TypeName" : "System.String",
 										"Name" : "ADdomainName",
 										"Value" : "[parameters('ADdomainName')]"
-									}, {
-										"TypeName" : "System.String",
-										"Name" : "DomainNetbiosName",
-										"Value" : "[parameters('DomainNetbiosName')]"
 									}
 								],
 								"ProtocolVersion" : {
@@ -306,7 +302,7 @@
 						"diskName" : "[concat(variables('newDomainName'), '-', variables('computer').SQLServer.hostname, '-osdisk')]",
 						"vhdUri" : "[concat(reference(concat('Microsoft.ClassicStorage/storageAccounts/', variables('newStorageAccountName'))).endpoints[0], 'vhds/', variables('newDomainName'), '-', variables('computer').SQLServer.hostname, '-osdisk.vhd')]",
 						"caching" : "ReadWrite",
-						"sourceImageName" : "a699494373c04fc0bc8f2bb1389d6106__Windows-Server-2012-R2-201503.01-en.us-127GB.vhd"
+						"sourceImageName" : "[parameters('sourceImageName')]"
 					}
 				},
 				"extensions" : [{
@@ -318,7 +314,8 @@
 					}, {
 						"extension" : "DSC",
 						"publisher" : "Microsoft.Powershell",
-						"version" : "1.*",
+						//"version" : "1.*",
+						"version" : "1.7",
 						"state" : "Enable",
 						"referenceName" : "DSC",
 						"parameters" : {

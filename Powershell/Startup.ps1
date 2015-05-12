@@ -26,7 +26,7 @@ Switch-AzureMode -Name AzureServiceManagement
 # Set variables
 
 [string]$ContainerName = "configurationfiles"
-[string]$DSCFile = "..\Sample\DSC\environmentDSC.ps1"
+[string]$DSCFile = "..\Sample\DSC\environmentDSC.ps1\environmentDSC.ps1.zip"
 [string]$SQLSetupConfigurationFile = "..\Sample\SQL\ConfigurationFile.ini"
 [string]$SQLdatabaseFile = "..\Sample\SQL\database.sql"
 [string]$WebPackageFile = "..\Sample\WebPackage\WebPackage.zip"
@@ -53,7 +53,7 @@ Set-AzureSubscription `
     -SQLSetupConfigurationFile $SQLSetupConfigurationFile `
     -SQLdatabaseFile $SQLdatabaseFile `
     -WebPackageFile $WebPackageFile `
-    -TemplateParametersFile $TemplateParametersFile
+    -TemplateParametersFile $TemplateParametersFile `    -TemplateFile $TemplateFile 
 
 .\Set-Environment-With-Parameters-File.ps1 `
     -TemplateFile $TemplateFile `

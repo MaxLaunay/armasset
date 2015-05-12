@@ -17,7 +17,7 @@
         -Location = "Your Azure Datacenter (eg : North Europe)" `
         -ParametersFile "..\Sample\ARM\parameters.json" `
         -TemplateParametersFile "..\Sample\ARM\parameters_template.json" `
-        -DSCFile "..\Sample\DSC\environmentDSC.ps1" `
+        -DSCFile "..\Sample\DSC\environmentDSC.ps1.zip" `
         -SQLSetupConfigurationFile "..\Sample\SQL\ConfigurationFile.ini" `
         -SQLdatabaseFile "..\Sample\SQL\database.sql" `
         -WebPackageFile "..\Sample\WebPackage\WebPackage.zip"
@@ -35,7 +35,8 @@ param (
     [Parameter(Mandatory = $true)][string]$DSCFile,
     [Parameter(Mandatory = $true)][string]$SQLSetupConfigurationFile,
     [Parameter(Mandatory = $true)][string]$SQLdatabaseFile,
-    [Parameter(Mandatory = $true)][string]$WebPackageFile
+    [Parameter(Mandatory = $true)][string]$WebPackageFile,
+    [Parameter(Mandatory = $true)][string]$TemplateFile 
 )
 
 # Switch to Service Management Mode
@@ -65,15 +66,16 @@ try{
     $ParametersFileObj = Get-Content $TemplateParametersFile -raw | ConvertFrom-Json
 
     # Upload DSC File File
-    Publish-AzureVMDscConfiguration `
+    <#Publish-AzureVMDscConfiguration `
         -ConfigurationPath $DSCFile `
         -containerName $ContainerName `
         -Force
+    write-output "- File '$DSCFile' push to the container '$ContainerName' on the storage account '$StorageAccountName'"#>
+    Set-AzureStorageBlobContent -Container $ContainerName -File $DSCFile -Force | out-Null
     write-output "- File '$DSCFile' push to the container '$ContainerName' on the storage account '$StorageAccountName'"
-    
     # Set DSCModuleURI
     $ParametersFileObj.DSCModuleURI.value = "https://$StorageAccountName.blob.core.windows.net/$ContainerName/" `
-        + (Get-Item $DSCFile).Name + ".zip"
+        + (Get-Item $DSCFile).Name
     
     # Upload SQL Setup Configuration File
     Set-AzureStorageBlobContent -Container $ContainerName -File $SQLSetupConfigurationFile -Force | out-Null
@@ -92,6 +94,11 @@ try{
     # Upload Web Package File
     Set-AzureStorageBlobContent -Container $ContainerName -File $WebPackageFile -Force | out-Null
     write-output "- File '$WebPackageFile' push to the container '$ContainerName' on the storage account '$StorageAccountName'"
+
+    # Upload Json Template
+    Set-AzureStorageBlobContent -Container $ContainerName -File $TemplateFile -Force | out-Null
+    write-output "- File '$TemplateFile' push to the container '$ContainerName' on the storage account '$StorageAccountName'"
+
     # Save Parameters.json
     $ParametersFileObj | ConvertTo-Json | Out-File $ParametersFile
 

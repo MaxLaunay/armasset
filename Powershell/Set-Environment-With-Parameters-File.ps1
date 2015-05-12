@@ -57,7 +57,7 @@ if (!(get-module AzureResourceManager)){
 
 # Internal Variables
 $ResourceGroupName = $envName + "-ResourceGroup" # Resource Group Name
-$DSCArchive = (get-item $DSCFile).name + ".zip"
+$DSCArchive = (get-item $DSCFile).name
 
 # Switch to Service Management mode
 Switch-AzureMode -Name AzureServiceManagement
