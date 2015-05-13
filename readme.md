@@ -88,12 +88,19 @@ Good luck!
 	###########################################################
 			#### To Do List ####
 	###########################################################
+<<<<<<< HEAD
 	- Update Web site creation
 	- Crypted MOF generate by DSC
 	- Azure Automation integration
 	- using DSC resources kit (need Crypted MOF)
 	- update readme
 	- change organisation to be push in https://github.com/Azure/azure-quickstart-templates
+=======
+	- Création d'un Web Site
+	- Intégration dans Azure Automation
+	- Ajout de variables pour le nom de domaine
+	- Utilisation du mot de passe user pour SQL
+>>>>>>> refs/remotes/origin/master
 	- Same script using Azure Cli (see http://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/)
 		/!\ Warning /!\ : To use Azure Cli's arm mode you have to be identified with an organizational account.
 
@@ -110,4 +117,17 @@ Powershell DSC
 		# http://blogs.technet.com/b/keithmayer/archive/2014/10/31/end-to-end-iaas-workload-provisioning-in-the-cloud-with-azure-automation-and-powershell-dsc-part-2.aspx
 		# http://colinsalmcorner.com/post/install-and-configure-sql-server-using-powershell-dsc	
 	DSC ressources kit :
+<<<<<<< HEAD
 		# https://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Kit-All-c449312d
+=======
+		# https://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Kit-All-c449312d
+
+Debugging
+	ActiveDirectory -Node "eo-ad-bootcamp"		(à ajouter dans le script PS ; permet de créer le MOF)
+	run DSC scriptstart-DscConfiguration -PAth .\ActiveDirectory -verbose -Wait
+	
+SQL Express 2012
+	Direct Download		
+		http://download.microsoft.com/download/8/D/D/8DD7BDBA-CEF7-4D8E-8C16-D9F69527F909/ENU/x64/SQLEXPRWT_x64_ENU.exe
+
+>>>>>>> refs/remotes/origin/master
