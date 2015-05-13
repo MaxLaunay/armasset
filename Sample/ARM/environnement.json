@@ -211,7 +211,7 @@
 						"extension" : "DSC",
 						"publisher" : "Microsoft.Powershell",
 						"referenceName" : "DSC",
-						"version" : "1.*",
+						"version" : "1.7",
 						"parameters" : {
 							"public" : {
 								"SasToken" : "[parameters('DSCToken')]",
