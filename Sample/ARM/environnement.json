@@ -56,6 +56,9 @@
 		"SQLServerISOUri" : {
 			"type" : "String"
 		},
+		"packageUri" : {
+			"type" : "String"
+		},
 		"webSiteHostingPlanSKU" : {
 			"type" : "string",
 			"allowedValues" : [
@@ -103,8 +106,6 @@
 		"sqlServerAdminLogin" : "sa",
 		/* évoluer */
 		"sqlServerAdminPassword" : "[parameters('password')]",
-
-		"packageUri" : "https://sourcedatafiles.blob.core.windows.net/web/package.zip"
 
 	},
 	"resources" : [{
@@ -401,7 +402,7 @@
 						"[concat('Microsoft.Web/Sites/', variables('webSiteName'))]"
 					],
 					"properties" : {
-						"packageUri" : "[variables('packageUri')]",
+						"packageUri" : "[parameters('packageUri')]",
 						"dbType" : "None",
 						"connectionString" : "",
 						"setParameters" : {

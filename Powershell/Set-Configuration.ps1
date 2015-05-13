@@ -94,6 +94,7 @@ try{
     # Upload Web Package File
     Set-AzureStorageBlobContent -Container $ContainerName -File $WebPackageFile -Force | out-Null
     write-output "- File '$WebPackageFile' push to the container '$ContainerName' on the storage account '$StorageAccountName'"
+    $ParametersFileObj.packageUri.value = "https://$StorageAccountName.blob.core.windows.net/$ContainerName/" `        + (Get-Item $WebPackageFile).Name
 
     # Upload Json Template
     Set-AzureStorageBlobContent -Container $ContainerName -File $TemplateFile -Force | out-Null

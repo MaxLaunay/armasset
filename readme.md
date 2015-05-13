@@ -19,7 +19,7 @@ Please read this articles (http://azure.microsoft.com/en-us/documentation/articl
 	############################################################
 			#### Run the script ####
 	############################################################
-For an easy start, open a powershell session, move to your local project directory, and run the powershell script .\startup.ps1.
+For an easy start, open a powershell session, move to your local project directory, directory powershell, and run the powershell script .\startup.ps1.
 To execute the .\startup.ps1 script, you have to fill these parameters:
 
 	.\Startup.ps1 	-SubscriptionName 	<Your_SubscriptionName> `
@@ -29,12 +29,12 @@ To execute the .\startup.ps1 script, you have to fill these parameters:
 	########################################################################
 			#### List of files and comments ####
 	########################################################################
-- Set-Configuration.ps1 : publish configuration of :
+- .\powershell\Set-Configuration.ps1 : publish configuration of :
 							- Templates files
 							- Configurations Files
 							- DSC Scripts
 
-- Environment.ps1 : 	Create an environment with :
+- .\powershell\Set-Environment-With-Parameters-File.ps1 : 	Create an environment with :
 							- An Active Directory Server
 							- An SQL Server with a Database
 			Parameters :
@@ -51,10 +51,6 @@ To execute the .\startup.ps1 script, you have to fill these parameters:
 							- a container			(variable :	$Container)
 							- a souscription		(here : 	"Osiatis CIS - MSDN Dev-Test")
 							- T-SQL file for Database creation
-
-- PublisEnv.ps1		Equivalent to Environment.ps1, but designed for Azure Automation
-			See https://manage.windowsazure.com/@osiatispracticeazure.onmicrosoft.com#Workspaces/AutomationExtension/Account/PublishEnv_33a2a411-ddca-452b-b6a6-92083f32cd07/Runbook/23919d26-7d93-42ab-862b-2319a3bcd2f3/author
-			/!\ Warning /!\ : Azure Automation's functionnement is clearly random
 
 	###########################################################################
 			#### Deployment details ####
@@ -92,10 +88,12 @@ Good luck!
 	###########################################################
 			#### To Do List ####
 	###########################################################
-	- Création d'un Web Site
-	- Intégration dans Azure Automation
-	- Ajout de variables pour le nom de domaine
-	- Utilisation du mot de passe user pour SQL
+	- Update Web site creation
+	- Crypted MOF generate by DSC
+	- Azure Automation integration
+	- using DSC resources kit (need Crypted MOF)
+	- update readme
+	- change organisation to be push in https://github.com/Azure/azure-quickstart-templates
 	- Same script using Azure Cli (see http://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/)
 		/!\ Warning /!\ : To use Azure Cli's arm mode you have to be identified with an organizational account.
 
@@ -113,19 +111,3 @@ Powershell DSC
 		# http://colinsalmcorner.com/post/install-and-configure-sql-server-using-powershell-dsc	
 	DSC ressources kit :
 		# https://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Kit-All-c449312d
-
-Debugging
-	ActiveDirectory -Node "eo-ad-bootcamp"		(à ajouter dans le script PS ; permet de créer le MOF)
-	run DSC scriptstart-DscConfiguration -PAth .\ActiveDirectory -verbose -Wait
-	
-SQL Express 2012
-	Direct Download		
-		http://download.microsoft.com/download/8/D/D/8DD7BDBA-CEF7-4D8E-8C16-D9F69527F909/ENU/x64/SQLEXPRWT_x64_ENU.exe
-
-
-		#################	
-		#### WAITING ####
-		################# 
-
-	########## RESOLVED ##########
-- Le compte SA à un mot de passe imposé : P@ssw0rd.1
