@@ -226,6 +226,9 @@
 										"TypeName" : "System.String",
 										"Name" : "ADdomainName",
 										"Value" : "[parameters('ADdomainName')]"
+									}, {
+										"TypeName" : "ConfigurationDataPath",
+										"Value" : "$PSSCriptRoot\\environmentDSC.psd1"
 									}
 								],
 								"ProtocolVersion" : {
